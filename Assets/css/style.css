@@ -1,1 +1,6 @@
-/* First commit */
+.header {
+    background-color: #15202B; 
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+}
