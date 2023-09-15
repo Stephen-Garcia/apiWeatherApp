@@ -3,10 +3,10 @@ let searchFormEl = document.querySelector('#searchForm');
 let searchHistoryEl = document.querySelector('#searchHistory');
 let currentSearchEl = document.querySelector('#current-weather');
 let forecastContainerEl = document.querySelector('#forecast-container');
+let apiKey = "7670742b1c1eef7da9a58716d6ae2f97"
 
-var apiKey = "a4bf9990bcf9632efd2074e14211ea95"
 function getApi() {
-    var city = document.getElementById('search-bar').value;
+    let city = document.getElementById('search-bar').value;
     fetch('https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=' + apiKey
     )
         .then(function (response) {
@@ -14,8 +14,8 @@ function getApi() {
         })
         .then(function (data) {
             console.log(data)
-            var lat = data.coord.lat
-            var lon = data.coord.lon
+            let lat = data.coord.lat
+            let lon = data.coord.lon
             searchApi(lat, lon)
         })
 };
@@ -45,17 +45,6 @@ submitEl.addEventListener('click', getApi);
 
 
 // submitEl.addEventListener('click', getRecipes);
-
-
-// var apiKey = "a4bf9990bcf9632efd2074e14211ea95";
-
-
-// var searchBarEl = document.querySelector('#search-bar');
-// var searchFormEl = document.querySelector('#search-form');
-// var searchHistoryEl = document.querySelector('#search-history');
-// var currentWeatherEl = document.querySelector('#current-weather');
-// var forecastContainerEl = document.querySelector('#forecast-container');
-
 
 // function getApi(city) {
 //     fetch('https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=' + apiKey)
