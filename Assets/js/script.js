@@ -28,82 +28,105 @@ function searchApi(lat, lon) {
             console.log(data)
         })
 };
+// function getForecastData(lat, lon) {
+//     // Use the OpenWeatherMap API to fetch forecast data for the city
+//     const apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely&appid=${apiKey}&units=metric`;
 
+//     fetch(apiUrl)
+//         .then((response) => response.json())
+//         .then((data) => {
+//             // Display forecast information (e.g., daily or hourly forecast)
+//             const forecast = document.getElementById('forecast');
+//             forecast.innerHTML = `
+//                 <!-- Display forecast data here -->
+//             `;
+//         })
+//         .catch((error) => {
+//             console.error('Error fetching forecast data:', error);
+//         });
+// }
+
+// function saveToSearchHistory(city) {
+//     // Save the searched city to the search history
+//     const searchHistory = document.getElementById('searchHistory');
+//     const listItem = document.createElement('li');
+//     listItem.textContent = city;
+//     searchHistory.appendChild(listItem);
+// }
 submitEl.addEventListener('click', getApi);
 
 
 
 
-// document.getElementById('recipe-search-form').addEventListener('submit', function (event) {
-//     event.preventDefault();
-
-//     const query = searchNutritionEl.value;
-//     const dietaryPreference = document.getElementById('dietary-preference').value;
-
-//     getRecipes(query, dietaryPreference);
-// });
 
 
-// submitEl.addEventListener('click', getRecipes);
-
-// function getApi(city) {
-//     fetch('https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=' + apiKey)
-//         .then(function (response) {
-//             return response.json();
-//         })
-//         .then(function (data) {
-//             var lat = data.coord.lat;
-//             var lon = data.coord.lon;
-//             searchApi(lat, lon, city);
-//         });
-// }
 
 
-// function searchApi(lat, lon, city) {
-//     fetch('https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&appid=' + apiKey)
-//         .then(function (response) {
-//             return response.json();
-//         })
-//         .then(function (data) {
-//             displayWeather(data, city);
-//         });
-// }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-// function displayWeather(data, city) {
-//     var currentWeather = data.list[0];
-//     currentWeatherEl.innerHTML = `
-//         <h2>${city} (${new Date().toLocaleDateString()}) <img src="https://openweathermap.org/img/w/${currentWeather.weather[0].icon}.png" alt="${currentWeather.weather[0].description}"></h2>
-//         <p>Temperature: ${(currentWeather.main.temp - 273.15).toFixed(2)} °C</p>
-//         <p>Humidity: ${currentWeather.main.humidity}%</p>
-//         <p>Wind Speed: ${currentWeather.wind.speed} m/s</p>
-//     `;
-
-   
-//     forecastContainerEl.innerHTML = '';
-//     for (var i = 0; i < data.list.length; i += 8) {
-//         var forecast = data.list[i];
-//         var forecastDate = new Date(forecast.dt * 1000);
-//         forecastContainerEl.innerHTML += `
-//             <div class="forecast-card">
-//                 <p>${forecastDate.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}</p>
-//                 <img src="https://openweathermap.org/img/w/${forecast.weather[0].icon}.png" alt="${forecast.weather[0].description}">
-//                 <p>Temperature: ${(forecast.main.temp - 273.15).toFixed(2)} °C</p>
-//                 <p>Humidity: ${forecast.main.humidity}%</p>
-//                 <p>Wind Speed: ${forecast.wind.speed} m/s</p>
-//             </div>
-//         `;
-//     }
-// }
 
 
-// function handleSearchFormSubmit(event) {
-//     event.preventDefault();
-//     var city = searchBarEl.value.trim();
-//     if (city) {
-//         getApi(city);
-//         searchBarEl.value = '';
-//     }
-// }
 
-// searchFormEl.addEventListener('submit', handleSearchFormSubmit);
+
+// Replace 'YOUR_API_KEY' with your OpenWeatherMap API key
+const apiKey = 'YOUR_API_KEY';
+
+document.getElementById('searchForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const cityInput = document.getElementById('cityInput').value;
+    getWeatherData(cityInput);
+});
+
+function getWeatherData(city) {
+    // Use the OpenWeatherMap API to fetch weather data for the city
+    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+
+    fetch(apiUrl)
+        .then((response) => response.json())
+        .then((data) => {
+            // Display current weather information
+            const currentWeather = document.getElementById('currentWeather');
+            currentWeather.innerHTML = `
+                <h2>Current Weather in ${data.name}, ${data.sys.country}</h2>
+                <p>Temperature: ${data.main.temp}°C</p>
+                <p>Weather: ${data.weather[0].description}</p>
+            `;
+
+            // Save the searched city to the search history
+            saveToSearchHistory(data.name);
+
+            // Fetch and display forecast data
+            getForecastData(data.coord.lat, data.coord.lon);
+        })
+        .catch((error) => {
+            console.error('Error fetching weather data:', error);
+        });
+}
+
+function getForecastData(lat, lon) {
+    // Use the OpenWeatherMap API to fetch forecast data for the city
+    const apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely&appid=${apiKey}&units=metric`;
+
+    fetch(apiUrl)
+        .then((response) => response.json())
+        .then((data) => {
+            // Display forecast information (e.g., daily or hourly forecast)
+            const forecast = document.getElementById('forecast');
+            forecast.innerHTML = `
+                <!-- Display forecast data here -->
+            `;
+        })
+        .catch((error) => {
+            console.error('Error fetching forecast data:', error);
+        });
+}
+
+function saveToSearchHistory(city) {
+    // Save the searched city to the search history
+    const searchHistory = document.getElementById('searchHistory');
+    const listItem = document.createElement('li');
+    listItem.textContent = city;
+    searchHistory.appendChild(listItem);
+}
