@@ -46,11 +46,12 @@ function searchApi(lat, lon) {
 //         });
 // }
 
-// function saveToSearchHistory(city) {
-//     // Save the searched city to the search history
-//     const searchHistory = document.getElementById('searchHistory');
-//     const listItem = document.createElement('li');
-//     listItem.textContent = city;
-//     searchHistory.appendChild(listItem);
-// }
+function saveToSearchHistory(city) {
+    // Save the searched city to the search history
+    const searchHistory = document.getElementById('searchHistory');
+    const listItem = document.createElement('li');
+    listItem.textContent = city;
+    searchHistory.appendChild(listItem);
+};
+
 submitEl.addEventListener('click', getApi);
