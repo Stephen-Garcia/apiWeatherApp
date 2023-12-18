@@ -5,7 +5,7 @@ let searchInput = document.querySelector("#search-input");
 let todayContainer = document.querySelector("#today");
 let forecastContainer = document.querySelector("#forecast");
 let searchHistoryContainer = document.querySelector("#history");
-let weatherApiKey = '7670742b1c1eef7da9a58716d6ae2f97';
+let weatherApiKey = process.env.weatherApiKey;
 
 dayjs.extend(window.dayjs_plugin_utc);
 dayjs.extend(window.dayjs_plugin_timezone);
