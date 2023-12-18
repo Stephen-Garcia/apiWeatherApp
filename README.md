@@ -13,7 +13,7 @@ To run this project, you will need to add the following environment variables to
 
 ## Screenshots
 
-![App Screenshot](\assets\images\Screenshot 2023-12-18 013141.jpg)
+![App Screenshot](/assets/images/Screenshot%202023-12-18%20013141.jpg)
 
 ## Application Link
 
